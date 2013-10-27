@@ -1,5 +1,10 @@
 from scrapy.item import Item, Field
 
+class DepartmentItem(Item):
+    code = Field()
+    title_en = Field()
+    title_da = Field()
+
 class CourseItem(Item):
     """
     TODO
@@ -11,7 +16,8 @@ class CourseItem(Item):
     evaluation_type = Field()
     ects_credits = Field()
     course_type = Field()
-    course_runs = {}
+    department = Field()
+    course_runs = Field()
 
 class CourseRun(Item):
     year = Field()
