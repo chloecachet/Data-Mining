@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
-
 import operator
 
 class Course:
     
-    def __init__(self, code, language, title_en, title_da, evaluation_type, ects_credits, course_type, department = None, course_runs = [], evaluations = []):
+    def __init__(self, code, language, title_en, title_da, evaluation_type, ects_credits, course_type, department = None, course_runs = []):
         self.code = code
         self.language = language
         self.title_en = title_en
@@ -13,69 +11,32 @@ class Course:
         self.ects_credits = ects_credits
         self.course_type = course_type
         self.department = department
-        self.course_runs = {}
-        self.evaluations = {}
-        self.add_course_runs(course_runs)
-        self.add_evaluations(evaluations)
-
-    def add_course_runs(self, course_runs):
-        for run in course_runs:
-            self.add_course_run(run)
+        self.course_runs = course_runs
 
     def add_course_run(self, course_run):
-        key = (course_run.year, course_run.semester)
-        self.course_runs[key] = course_run
+        self.course_runs.append(course_run)
 
-    def add_evaluations(self, evaluations):
-        for evaluation in evaluations:
-            self.add_evaluation(evaluation)
+    def is_7_grade_eval(self):
+        pass
 
-    def add_evaluation(self, evaluation):
-        key = (evaluation.year, evaluation.semester)
-        self.evaluations[key] = evaluation
 
-    def all_course_runs(self):
-        return self.course_runs.values()
+    def list_of_years_run(self):
+        return []
 
-    def all_evaluations(self):
-        return self.evaluations.values()
-
-    def get_course_run(self, year, semester):
-        """
-            semester = E / F
-        """
-        key = (year, semester)
-        return self.course_runs.get(key)
-
-    def get_evaluation(self, year, semester):
-        """
-            semester = E / F
-        """
-        key = (year, semester)
-        return self.evaluations.get(key)
+    def run_of_year(self, year):
+        if year not in self.list_of_years_run():
+            return None # exception?
+        else:
+            pass
 
     def __repr__(self):
-        templ = u"{0}: {2} ({3}), taught in {1}, evaluation: {4}, ects credits: {5}, course type: {6}, department: {8}, {9} course runs: {7}, evaluations: {8}"
-        result = templ.format(self.code, self.language, self.title_en, self.title_da, self.evaluation_type,
-                            self.ects_credits, self.course_type, self.course_runs, self.department, len(self.course_runs), len(self.evaluations))
-        return result.encode("utf-8")
+        templ = "{0}: {2} ({3}), taught in {1}, evaluation: {4}, ects credits: {5}, course type: {6}, department: {8}, course runs: {7}"
+        return templ.format(self.code, self.language, self.title_en, self.title_da, self.evaluation_type,
+                            self.ects_credits, self.course_type, self.course_runs, self.department)
+
 
     def __str__(self):
-        course_str = u"""{0}: {1} ({2})
-        {3}
-        {4}
-        {5} credits
-        {6}
-        {7}
-        {8} course runs:
-        """.format(self.code, self.title_en, self.title_da, self.language, self.evaluation_type, self.ects_credits,
-                   self.course_type, self.department, len(self.course_runs), len(self.evaluations))
-        for run in self.course_runs.values():
-            course_str += str(run) + "\n"
-        course_str += "{} evaluations:\n".format(len(self.evaluations))
-        for eval in self.evaluations.values():
-            course_str += str(eval) + "\n"
-        return course_str
+        return self.__repr__()
 
     def __eq__(self, other):
         comparisons = [
@@ -87,10 +48,6 @@ class Course:
             self.ects_credits == other.ects_credits,
             self.course_type == other.course_type,
             self.course_runs == other.course_runs,
-            self.evaluations == other.evaluations,
             self.department == other.department
         ]
         return reduce(operator.and_, comparisons)
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
