@@ -60,7 +60,6 @@ def pagebase():
             </div>
             <div id="pied">
                 <p>Created by Pascal TIMSHEL (102848), Vladimir KROUPA (131509), Chloe CACHET (131316)</p>
-                <br>
                 <p><img STYLE="border: none;" src="../logo3.png" width="300" height="20"></p>
             </div>
         </div>

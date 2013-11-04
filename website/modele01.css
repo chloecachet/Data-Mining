@@ -17,7 +17,7 @@
 /* Général */
 body {
 	color: #F8F8FF;
-	background: #F8F8FF; /* Voir -> Note 1 ci-dessous */
+	background: #D3D3D3; /* Voir -> Note 1 ci-dessous */
 }
 a {
 	color: #FF6533;
@@ -27,6 +27,11 @@ a:hover, a:focus {
 }
 strong {
 	color: #A1B55D;
+}
+
+/* Global */
+#global {
+	position: relative;
 }
 
 /* En-tête */
@@ -66,6 +71,9 @@ strong {
 #pied {
 	color: #F8F8FF;
 	background: #8B0000;
+	position: absolute;
+	bottom: 3px;
+	width: 100%;
 }
 
 
